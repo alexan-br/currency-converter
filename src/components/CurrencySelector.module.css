@@ -1,50 +1,43 @@
-.searchContainer{
-    width: 300px;
+.searchContainer {
+  width: 100px;
 }
-.searchbox {
-    padding: 10px;
-    border: none;
-    border-radius: 5px 5px 0 0 ;
-    font-size: 18px;
-    font-family: 'Poppins';
-    font-weight: 500;
-    width: 100%;
+.searchbox:focus {
+  border-radius: 5px 5px 0 0;
 }
 .dropdown {
-    list-style: none;
-    padding: 10px;
-    max-height: 200px;
-    overflow-y: scroll;
-    border-radius: 0 0 10px 10px;
-    margin: 0;
-    background-color: #555;
+  list-style: none;
+  padding: 10px;
+  max-height: 200px;
+  overflow-y: scroll;
+  border-radius: 0 0 10px 10px;
+  margin: 0;
+  background-color: #555;
 }
 
-.dropdown > li + li{
-    margin-top: 10px;
+.dropdown > li + li {
+  margin-top: 10px;
 }
 
 .dropdown::-webkit-scrollbar {
-    width: 4px;
+  width: 4px;
 }
 
 /* Track */
 .dropdown::-webkit-scrollbar-track {
-    background: #ffffff00;
+  background: #ffffff00;
 }
 
 /* Handle */
 .dropdown::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 5px;
-
+  background: #888;
+  border-radius: 5px;
 }
 
 /* Handle on hover */
 .dropdown::-webkit-scrollbar-thumb:hover {
-    background: #555;
+  background: #555;
 }
 
 .dropdown li:hover {
-    cursor: pointer;
+  cursor: pointer;
 }

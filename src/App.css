@@ -1,0 +1,35 @@
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 30px;
+}
+
+.currency-container {
+  display: flex;
+}
+.currency-container label {
+  display: flex;
+  flex-direction: column;
+}
+.currency-container label .amount-inputs {
+  display: flex;
+  flex-direction: row;
+}
+
+input {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  font-family: "Poppins";
+  font-weight: 500;
+  width: 100%;
+}
+.currency-amount {
+  height: fit-content;
+  width: 10rem;
+}
+input:focus {
+  outline: none;
+}
