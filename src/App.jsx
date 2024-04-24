@@ -8,7 +8,7 @@ function App() {
   const [baseCurrency, setBaseCurrency] = useState("EUR");
   const [targetCurrency, setTargetCurrency] = useState("USD");
   const [amount, setAmount] = useState("");
-  const [result, setResult] = useState(null);
+  const [resultVisible, setResultVisible] = useState(false);
 
   const handleBaseCurrencyChange = (currency) => {
     setBaseCurrency(currency);
@@ -22,8 +22,6 @@ function App() {
     setAmount(event.target.value);
   };
 
-  let exchangRateResult = 0;
-
   const fetchExchangeRate = async () => {
     const response = await fetch(
       `https://api.currencyapi.com/v3/latest?apikey=cur_live_sNvG6JcfHm42dacE5OWs8SExFUaTmC38C1bAxZnf&currencies=${targetCurrency}&base_currency=${baseCurrency}`
@@ -32,43 +30,60 @@ function App() {
       throw new Error("Failed to fetch exchange rate");
     }
     const data = await response.json();
-    console.log(data.data[targetCurrency].value);
     setExchangeRate(data.data[targetCurrency].value);
+    setResultVisible(true);
     return data.data[targetCurrency].value;
+  };
+
+  const swapCurrencies = () => {
+    // Échanger les valeurs de baseCurrency et targetCurrency
+    const temp = baseCurrency;
+    setBaseCurrency(targetCurrency);
+    setTargetCurrency(temp);
   };
 
   return (
     <>
       <Header />
       <main>
-        <div className="currency-container">
-          <label>
-            Amount to convert
-            <div className="amount-inputs">
-              <input
-                type="number"
-                placeholder="Amount"
-                className="currency-amount"
-                value={amount}
-                onChange={handleAmountChange}
-              />
+        <div className="container">
+          <div className="currency-container">
+            <label>
+              Amount
+              <div className="amount-inputs">
+                <input
+                  type="number"
+                  placeholder="Amount"
+                  className="currency-amount"
+                  value={amount}
+                  onChange={handleAmountChange}
+                />
+              </div>
+            </label>
+            <label htmlFor="">
+              From
               <CurrencySelector
                 onSelectBaseCurrency={handleBaseCurrencyChange}
               />
-            </div>
-          </label>
+            </label>
+          </div>
+          <button onClick={swapCurrencies}>⇆</button>
+          <div>
+            To
+            <CurrencySelector onSelectCurrencies={handleTargetCurrencyChange} />
+          </div>
         </div>
-        <div>
-          <CurrencySelector onSelectCurrencies={handleTargetCurrencyChange} />
-        </div>
-        <button onClick={(exchangRateResult = fetchExchangeRate)}>
+        <button onClick={fetchExchangeRate} className="convert-button">
           Convert
         </button>
-        <p>
-          {isNaN(Math.round(amount * exchangeRate * 100) / 100)
-            ? ""
-            : Math.round(amount * exchangeRate * 100) / 100}
-        </p>
+        {resultVisible && (
+          <p className="result">
+            {isNaN(Math.round(amount * exchangeRate * 100) / 100)
+              ? ""
+              : Math.round(amount * exchangeRate * 100) / 100}{" "}
+            {targetCurrency}
+          </p>
+        )}
       </main>
     </>
   );

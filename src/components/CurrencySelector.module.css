@@ -12,6 +12,7 @@
   border-radius: 0 0 10px 10px;
   margin: 0;
   background-color: #555;
+  position: absolute;
 }
 
 .dropdown > li + li {
